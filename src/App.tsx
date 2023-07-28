@@ -1,8 +1,11 @@
 import './App.css'
+import CatalogPage from './pages/catalog';
+
 
 function App() {
-
-  return <div>Hello world</div>
+  return (
+    <CatalogPage />
+  )
 }
 
 export default App
