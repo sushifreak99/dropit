@@ -3,18 +3,19 @@ import Header from "../components/header"
 import Logo from "../components/logo"
 import CartBadge from "../components/cartBadge"
 import CatalogTable from "../components/catalogTable"
-import { Layout, Typography } from "antd"
-
-const { Content } = Layout;
+import SearchInput from "../components/searchInput"
+import { Typography } from "antd"
+import { FilterProvider } from "../utils/filterContext"
 
 const CatalogContent = () => {
   return (
-    <Content>
-      <Content style={{ maxWidth: '1271px' }}>
-        <Typography.Title level={3}>Catalog page</Typography.Title>
+    <>
+      <Typography.Title level={3}>Catalog page</Typography.Title>
+      <FilterProvider>
+        <SearchInput />
         <CatalogTable />
-      </Content>
-    </Content>
+      </FilterProvider>
+    </>
   )
 }
 

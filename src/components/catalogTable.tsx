@@ -3,6 +3,7 @@ import { getCatalog } from "../utils/catalog";
 import { PlusSquareOutlined } from "@ant-design/icons";
 import { hasError, hasSuccess, useLoading } from "../utils/loadingState";
 import { useCart } from "../utils/cartContext";
+import { useFilter } from "../utils/filterContext";
 
 const { Column } = Table;
 
@@ -22,12 +23,14 @@ const ConnectedAddToCartAction = ({id}: Pick<AddToCartActionProps, 'id'>) => {
 
 const CatalogTable = () => {
   const state = useLoading(getCatalog);
+  const { searchTerm } = useFilter();
   if (hasError(state)) {
     return <div>Failed loading catalog</div>
   }
+  console.log(state)
   return (
       <Table
-        dataSource={hasSuccess(state) ? state.data : []}
+        dataSource={hasSuccess(state) ? state.data.filter(item => searchTerm === '' || item.title.includes(searchTerm) || item.id.includes(searchTerm)) : []}
         pagination={false}
         scroll={{
           scrollToFirstRowOnChange: true,
@@ -44,6 +47,7 @@ const CatalogTable = () => {
         <Column title="Price" dataIndex="price" key="price" render={(price) => `$${price}`} />
         <Column
           title=""
+          width={"100px"}
           dataIndex="id"
           key="add-to-cart-action"
           render={(id) => <ConnectedAddToCartAction id={id} /> }

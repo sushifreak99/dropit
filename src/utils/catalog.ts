@@ -17,7 +17,7 @@ export const getCatalog = (): Promise<CatalogData> => fetch(CATALOG_URL)
   .then(response => response.json())
   .then(catalog => catalog.map((item: CatalogItem) => ({ 
     image: item.image,
-    id: item.id,
+    id: item.id.toString(),
     title: item.title,
     price: item.price,
     key: item.id,
