@@ -1,10 +1,13 @@
 import './App.css'
 import CatalogPage from './pages/catalog';
+import { CartProvider } from './utils/cartContext';
 
 
 function App() {
   return (
-    <CatalogPage />
+    <CartProvider>
+      <CatalogPage />
+    </CartProvider>
   )
 }
 

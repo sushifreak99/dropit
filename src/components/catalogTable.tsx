@@ -2,6 +2,7 @@ import { Avatar, Button, Table } from "antd";
 import { getCatalog } from "../utils/catalog";
 import { PlusSquareOutlined } from "@ant-design/icons";
 import { hasError, hasSuccess, useLoading } from "../utils/loadingState";
+import { useCart } from "../utils/cartContext";
 
 const { Column } = Table;
 
@@ -13,6 +14,11 @@ interface AddToCartActionProps {
 const AddToCartAction = ({id,  onAdd }: AddToCartActionProps) => (
   <Button onClick={() => onAdd(id)} type="text"><PlusSquareOutlined /></Button>
 )
+
+const ConnectedAddToCartAction = ({id}: Pick<AddToCartActionProps, 'id'>) => {
+  const { add: onAdd } = useCart();
+  return <AddToCartAction id={id} onAdd={onAdd} />
+}
 
 const CatalogTable = () => {
   const state = useLoading(getCatalog);
@@ -40,7 +46,7 @@ const CatalogTable = () => {
           title=""
           dataIndex="id"
           key="add-to-cart-action"
-          render={(id) => <AddToCartAction id={id} onAdd={() => console.log('add id', id)} /> }
+          render={(id) => <ConnectedAddToCartAction id={id} /> }
         />
       </Table>
   );
