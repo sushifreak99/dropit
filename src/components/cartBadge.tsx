@@ -1,21 +1,23 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
-import { Badge, GlobalToken, theme } from "antd";
+import { Badge, BadgeProps, GlobalToken, theme } from "antd";
 import { computeCartQuantity } from "../utils/cartContext";
 
-interface CartBadgeProps extends Pick<GlobalToken, 'fontSize'>{
+interface CartBadgeProps {
   count: number;
+  badgeSize: BadgeProps['size'];
+  cartFontSize: GlobalToken['fontSize'];
 }
 
-const CartBadge = ({count, fontSize}: CartBadgeProps) => (
-  <Badge count={count}>
-    <ShoppingCartOutlined style={{fontSize}} />
+const CartBadge = ({count, badgeSize, cartFontSize}: CartBadgeProps) => (
+  <Badge count={count} size={badgeSize}>
+    <ShoppingCartOutlined style={{fontSize: cartFontSize}} />
   </Badge>
 )
 
 const ConnectedCartBadge = () => {
   const { token } = theme.useToken();
   const count = computeCartQuantity();
-  return <CartBadge fontSize={token.fontSize} count={count} />
+  return <CartBadge badgeSize="small" cartFontSize={token.fontSizeXL} count={count} />
 }
 
 export default ConnectedCartBadge;
