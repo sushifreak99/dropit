@@ -1,25 +1,11 @@
-import { Avatar, Button, Table } from "antd";
+import { Avatar, Table } from "antd";
 import { getCatalog } from "../utils/catalog";
-import { PlusSquareOutlined } from "@ant-design/icons";
 import { hasError, hasSuccess, useLoading } from "../utils/loadingState";
-import { useCart } from "../utils/cartContext";
 import { useFilter } from "../utils/filterContext";
+import ConnectedAddToCartAction from "./addToCartAction";
 
 const { Column } = Table;
 
-interface AddToCartActionProps {
-  onAdd: (itemId: string) => void;
-  id: string;
-}
-
-const AddToCartAction = ({id,  onAdd }: AddToCartActionProps) => (
-  <Button onClick={() => onAdd(id)} type="text"><PlusSquareOutlined /></Button>
-)
-
-const ConnectedAddToCartAction = ({id}: Pick<AddToCartActionProps, 'id'>) => {
-  const { add: onAdd } = useCart();
-  return <AddToCartAction id={id} onAdd={onAdd} />
-}
 
 const CatalogTable = () => {
   const state = useLoading(getCatalog);
