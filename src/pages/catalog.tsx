@@ -7,10 +7,12 @@ import SearchInput from "../components/searchInput"
 import { Typography } from "antd"
 import { FilterProvider } from "../utils/filterContext"
 
+const { Title } = Typography;
+
 const CatalogContent = () => {
   return (
     <>
-      <Typography.Title level={3}>Catalog page</Typography.Title>
+      <Title level={3}>Catalog page</Title>
       <FilterProvider>
         <SearchInput />
         <CatalogTable />
