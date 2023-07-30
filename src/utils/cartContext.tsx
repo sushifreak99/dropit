@@ -64,6 +64,6 @@ export function useCart() {
 }
 
 export function computeCartQuantity() {
-  const { items } = useContext(CartContext) ?? { items: 0 };
+  const { items } = useCart();
   return Object.values(items).reduce((sum, current) => sum + current, 0)
 }
