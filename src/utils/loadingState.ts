@@ -24,3 +24,4 @@ export function useLoading<T>(fetchData: () => Promise<T>) {
 
 export const hasError = <T>(state: LoadingState<T>): state is {type: LoadingStateType.FAILURE, err: Error} => state.type === LoadingStateType.FAILURE
 export const hasSuccess = <T>(state: LoadingState<T>): state is {type: LoadingStateType.SUCCESS, data: T} => state.type === LoadingStateType.SUCCESS
+export const isLoading = <T>(state: LoadingState<T>): state is {type: LoadingStateType.LOADING} => state.type === LoadingStateType.LOADING

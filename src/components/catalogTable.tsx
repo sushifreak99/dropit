@@ -1,20 +1,20 @@
-import { Avatar, Table } from "antd";
-import { getCatalog } from "../utils/catalog";
-import { hasError, hasSuccess, useLoading } from "../utils/loadingState";
+import { Avatar, Spin, Table } from "antd";
+import { hasError, hasSuccess, isLoading } from "../utils/loadingState";
 import { useFilter } from "../utils/filterContext";
 import ConnectedAddToCartAction from "./addToCartAction";
+import { useCatalog } from "../utils/catalogContext";
 
 const { Column } = Table;
 
 
 const CatalogTable = () => {
-  const state = useLoading(getCatalog);
+  const { state } = useCatalog();
   const { searchTerm } = useFilter();
   if (hasError(state)) {
     return <div>Failed loading catalog</div>
   }
-  console.log(state)
   return (
+    <Spin tip="Loading catalog items" spinning={isLoading(state)}>
       <Table
         dataSource={hasSuccess(state) ? state.data.filter(item => searchTerm === '' || item.title.includes(searchTerm) || item.id.includes(searchTerm)) : []}
         pagination={false}
@@ -39,6 +39,7 @@ const CatalogTable = () => {
           render={(id) => <ConnectedAddToCartAction id={id} /> }
         />
       </Table>
+    </Spin>
   );
 }
 
